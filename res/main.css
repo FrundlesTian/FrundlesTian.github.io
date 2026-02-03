@@ -1,114 +1,253 @@
-body {
-  background-image: url('images/bg_tile.png');
-  background-repeat: repeat;
-  text-align: center;
-  font-family: 'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', sans-serif;
+/* ========== Y2K 风格主样式 ========== */
+:root {
+  --y2k-pink: #ff00a6;
+  --y2k-cyan: #00ffff;
+  --y2k-silver: #c0c0c0;
+  --y2k-blue: #0066ff;
+  --y2k-purple: #bf00ff;
+  --y2k-yellow: #ffff00;
+  --y2k-bg-dark: #0d0221;
+  --y2k-bg-mid: #1a0a2e;
+  --y2k-chrome-light: linear-gradient(180deg, #e8e8e8 0%, #a0a0a0 50%, #606060 100%);
+  --y2k-chrome-text: linear-gradient(180deg, #fff 0%, #c0c0c0 50%, #808080 100%);
 }
 
-.textBlock {
-  border: 2px solid black;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--y2k-bg-dark);
   background-image: url('images/alt_tile.png');
   background-repeat: repeat;
-  margin-right: 5%;
-  margin-left: 5%;
-  padding: 15px;
-  overflow-x: scroll;
+  background-color: #0d0221;
+  text-align: center;
+  font-family: 'Share Tech Mono', 'Consolas', monospace;
+  color: #e0e0e0;
+  margin: 0;
+  padding: 1rem;
 }
 
-.bubbles {
-  background-image: url('images/bubbles.png');
-  color: white;
+/* ========== 顶部标题区 ========== */
+.y2k-header {
+  margin-bottom: 1.5rem;
 }
 
-.redgrid {
-  background-image: url('images/red_grid.jpg');
-  color: white;
+.title-banner {
+  width: 90%;
+  max-width: 640px;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
 }
 
-h1,
-h2,
-a,
-.links a:hover {
-  background: linear-gradient(
-    90deg,
-    #ff0000,
-    #ff7f00,
-    #ffff00,
-    #00ff00,
-    #0000ff,
-    #4b0082,
-    #9400d3,
-    #ff0000
-  );
-  background-size: 300% 300%;
+.contact-line {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin-top: 0.5rem;
+}
+
+.contact-line a {
+  color: var(--y2k-cyan);
+  text-decoration: none;
+  text-shadow: 0 0 8px var(--y2k-cyan);
+}
+
+.contact-line a:hover {
+  color: var(--y2k-pink);
+  text-shadow: 0 0 12px var(--y2k-pink);
+}
+
+/* ========== 导航 ========== */
+.y2k-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 2rem;
+}
+
+.y2k-nav a {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--y2k-silver);
+  padding: 0.4rem 0.8rem;
+  border: 2px solid var(--y2k-cyan);
+  background: rgba(0, 255, 255, 0.08);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.y2k-nav a:hover {
+  color: var(--y2k-pink);
+  border-color: var(--y2k-pink);
+  background: rgba(255, 0, 166, 0.12);
+  box-shadow: 0 0 12px var(--y2k-pink);
+}
+
+/* ========== 主内容块 ========== */
+.textBlock.y2k-main {
+  border: 2px solid var(--y2k-cyan);
+  background: var(--y2k-bg-mid);
+  background-image: url('images/alt_tile.png');
+  background-repeat: repeat;
+  margin: 0 auto 2rem;
+  max-width: 900px;
+  padding: 1.5rem 2rem;
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 24px rgba(0, 255, 255, 0.15), inset 0 0 60px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== 区块标题（Y2K 镀铬/霓虹） ========== */
+.y2k-section h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  background: linear-gradient(90deg, var(--y2k-cyan), var(--y2k-pink), var(--y2k-cyan));
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: rainbowFlow 6s linear infinite;
+  background-clip: text;
+  animation: y2kShine 4s linear infinite;
+  margin-bottom: 1rem;
 }
 
-@keyframes rainbowFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.y2k-icon {
+  -webkit-text-fill-color: var(--y2k-yellow);
+  text-shadow: 0 0 6px var(--y2k-yellow);
 }
 
-h3 {
-  color: purple;
+@keyframes y2kShine {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-.title {
-  width: 90%;
-  max-width: 600px;
+/* ========== 卡片 ========== */
+.y2k-card {
+  text-align: left;
+  border: 1px solid rgba(0, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
 }
 
-.links {
-  display: inline-block;
-  margin-bottom: 20px;
+.y2k-card-highlight {
+  border-color: rgba(255, 0, 166, 0.5);
+  background: rgba(255, 0, 166, 0.06);
 }
 
-.links a {
-  margin: 10px;
-  font-size: 28px;
-  font-weight: bold;
-  text-decoration: none;
-  display: inline-block;
-  animation: wave 1s infinite ease-in-out;
-  transform-origin: center;
-  color: greenyellow;
+.y2k-card h3 {
+  color: var(--y2k-cyan);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  margin: 0 0 0.4rem 0;
 }
 
+.y2k-card .meta {
+  color: var(--y2k-silver);
+  font-size: 0.85rem;
+  margin: 0 0 0.6rem 0;
+}
+
+.y2k-card ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  line-height: 1.6;
+}
+
+.y2k-card li {
+  margin-bottom: 0.4rem;
+}
+
+.y2k-card p {
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
+}
+
+/* ========== 论文列表 ========== */
+.pub-list {
+  text-align: left;
+  padding-left: 1.5rem;
+  margin: 0 0 1rem 0;
+  line-height: 1.65;
+}
+
+.pub-list li {
+  margin-bottom: 1rem;
+}
+
+.pub-list em {
+  color: var(--y2k-silver);
+}
+
+/* ========== 技能标签 ========== */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.skill-tag {
+  flex: 1 1 280px;
+  max-width: 100%;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+
+/* ========== 分割线 ========== */
+.y2k-hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--y2k-cyan), var(--y2k-pink), var(--y2k-cyan), transparent);
+  margin: 1.5rem 0;
+  opacity: 0.7;
+}
+
+/* ========== 区块装饰 GIF ========== */
+.section-gif {
+  max-width: 80px;
+  margin: 0.5rem auto;
+  display: block;
+}
+
+.footer-gif {
+  max-width: 48px;
+  margin: 0.25rem auto;
+  display: block;
+}
+
+/* ========== 页脚 ========== */
+.y2k-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  color: var(--y2k-silver);
+  font-size: 0.9rem;
+}
+
+.y2k-footer p {
+  margin: 0;
+}
+
+/* ========== 图片通用 ========== */
 img {
   max-width: 90%;
 }
 
-.bigPic {
-  width: 90%;
-  max-width: 600px;
-  background: white;
-}
-
-@keyframes wave {
-  0%,
-  100% {
-    transform: rotate(0deg);
-    text-shadow: 0 0 1px #d5ffff, 0 0 1px #cdff28, 0 0 4px #d5ffff;
-  }
-  25% {
-    transform: rotate(5deg);
-    text-shadow: 0 0 1px #d5ffff, 0 0 1px #d5ffff, 0 0 2px #73ff00;
-  }
-  50% {
-    transform: rotate(0deg) scale(1.05);
-    text-shadow: 0 0 1px #d5ffff, 0 0 1px #ff00a6, 0 0 5px #d5ffff;
-  }
-  75% {
-    transform: rotate(-5deg);
-    text-shadow: 0 0 1px #d5ffff, 0 0 1px #d5ffff, 0 0 1px #a05bff;
-  }
+/* ========== 若缺少 title.gif 时的后备标题 ========== */
+.y2k-header .title-fallback {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 2.5rem;
+  letter-spacing: 0.2em;
+  background: var(--y2k-chrome-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px var(--y2k-cyan);
 }
