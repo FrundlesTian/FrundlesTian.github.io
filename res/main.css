@@ -16,14 +16,13 @@
   box-sizing: border-box;
 }
 
+/* 整页背景：MrFrundles 重复拼接 */
 body {
-  background: var(--y2k-bg-dark);
-  background-image: url('images/alt_tile.png');
-  background-repeat: repeat;
-  background-color: #0d0221;
+  background: #1a1a2e url('images/MrFrundles.jpg') repeat;
+  background-color: #1a1a2e;
   text-align: center;
   font-family: 'Share Tech Mono', 'Consolas', monospace;
-  color: #e0e0e0;
+  color: #1a1a1a;
   margin: 0;
   padding: 1rem;
 }
@@ -48,14 +47,13 @@ body {
 }
 
 .contact-line a {
-  color: var(--y2k-cyan);
+  color: #0d47a1;
   text-decoration: none;
-  text-shadow: 0 0 8px var(--y2k-cyan);
 }
 
 .contact-line a:hover {
-  color: var(--y2k-pink);
-  text-shadow: 0 0 12px var(--y2k-pink);
+  color: #1565c0;
+  text-decoration: underline;
 }
 
 /* ========== 导航 ========== */
@@ -72,83 +70,82 @@ body {
   font-weight: 700;
   font-size: 0.95rem;
   text-decoration: none;
-  color: var(--y2k-silver);
+  color: #1a1a1a;
   padding: 0.4rem 0.8rem;
-  border: 2px solid var(--y2k-cyan);
-  background: rgba(0, 255, 255, 0.08);
+  border: 2px solid #333;
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 4px;
   transition: all 0.2s ease;
 }
 
 .y2k-nav a:hover {
-  color: var(--y2k-pink);
-  border-color: var(--y2k-pink);
-  background: rgba(255, 0, 166, 0.12);
-  box-shadow: 0 0 12px var(--y2k-pink);
+  color: #0d47a1;
+  border-color: #0d47a1;
+  background: rgba(255, 255, 255, 0.9);
 }
 
-/* ========== 主内容块 ========== */
+/* ========== 主内容块（保持 alt_tile 白底，内文偏黑） ========== */
 .textBlock.y2k-main {
-  border: 2px solid var(--y2k-cyan);
-  background: var(--y2k-bg-mid);
-  background-image: url('images/alt_tile.png');
-  background-repeat: repeat;
+  border: 2px solid #333;
+  background: #fff url('images/alt_tile.png') repeat;
+  background-color: #fff;
   margin: 0 auto 2rem;
   max-width: 900px;
   padding: 1.5rem 2rem;
   overflow-x: auto;
   border-radius: 8px;
-  box-shadow: 0 0 24px rgba(0, 255, 255, 0.15), inset 0 0 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  color: #1a1a1a;
 }
 
-/* ========== 区块标题（Y2K 镀铬/霓虹） ========== */
+.textBlock.y2k-main .y2k-section h2,
+.textBlock.y2k-main .y2k-card h3,
+.textBlock.y2k-main .y2k-card .meta,
+.textBlock.y2k-main .y2k-card p,
+.textBlock.y2k-main .y2k-card li,
+.textBlock.y2k-main .pub-list li,
+.textBlock.y2k-main .pub-list em,
+.textBlock.y2k-main .y2k-footer p {
+  color: #1a1a1a;
+}
+
+/* ========== 区块标题（Y2K 字体偏黑，适配白底） ========== */
 .y2k-section h2 {
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
   font-size: 1.4rem;
-  background: linear-gradient(90deg, var(--y2k-cyan), var(--y2k-pink), var(--y2k-cyan));
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: y2kShine 4s linear infinite;
+  color: #0d0d0d;
   margin-bottom: 1rem;
 }
 
 .y2k-icon {
-  -webkit-text-fill-color: var(--y2k-yellow);
-  text-shadow: 0 0 6px var(--y2k-yellow);
-}
-
-@keyframes y2kShine {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  color: #333;
 }
 
 /* ========== 卡片 ========== */
 .y2k-card {
   text-align: left;
-  border: 1px solid rgba(0, 255, 255, 0.4);
-  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid #333;
+  background: rgba(255, 255, 255, 0.6);
   padding: 1rem 1.25rem;
   margin-bottom: 1rem;
   border-radius: 6px;
 }
 
 .y2k-card-highlight {
-  border-color: rgba(255, 0, 166, 0.5);
-  background: rgba(255, 0, 166, 0.06);
+  border-color: #444;
+  background: rgba(240, 240, 255, 0.8);
 }
 
 .y2k-card h3 {
-  color: var(--y2k-cyan);
+  color: #0d0d0d;
   font-family: 'Orbitron', sans-serif;
   font-size: 1.1rem;
   margin: 0 0 0.4rem 0;
 }
 
 .y2k-card .meta {
-  color: var(--y2k-silver);
+  color: #333;
   font-size: 0.85rem;
   margin: 0 0 0.6rem 0;
 }
@@ -204,9 +201,9 @@ body {
 .y2k-hr {
   border: none;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--y2k-cyan), var(--y2k-pink), var(--y2k-cyan), transparent);
+  background: linear-gradient(90deg, transparent, #333, #555, #333, transparent);
   margin: 1.5rem 0;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 /* ========== 区块装饰 GIF ========== */
@@ -226,12 +223,34 @@ body {
 .y2k-footer {
   margin-top: 2rem;
   padding-top: 1rem;
-  color: var(--y2k-silver);
+  color: #1a1a1a;
   font-size: 0.9rem;
 }
 
 .y2k-footer p {
   margin: 0;
+}
+
+/* Apple 实习标题旁的 logo */
+.apple-logo {
+  display: inline-block;
+  vertical-align: middle;
+  width: 28px;
+  height: auto;
+  max-width: none;
+}
+
+/* 网站建设中区块 */
+.under-construction {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.under-construction img {
+  display: block;
+  margin: 0.5rem auto;
+  max-width: 120px;
 }
 
 /* ========== 图片通用 ========== */
@@ -245,9 +264,5 @@ img {
   font-weight: 900;
   font-size: 2.5rem;
   letter-spacing: 0.2em;
-  background: var(--y2k-chrome-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 20px var(--y2k-cyan);
+  color: #1a1a1a;
 }
