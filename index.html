@@ -1,481 +1,230 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Frundles Tian - Desktop</title>
-  <link rel="stylesheet" href="https://unpkg.com/xp.css" />
-  <style>
-    :root {
-      color-scheme: light;
-      --taskbar-blue: #245edb;
-      --taskbar-blue-dark: #123f9f;
-      --taskbar-green: #36a638;
-      --taskbar-green-dark: #1d7f22;
-    }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Frundles Tian - Desktop</title>
+    <link rel="stylesheet" href="https://unpkg.com/xp.css" />
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body class="surface" ontouchstart>
+    <main class="desktop" aria-label="Windows XP style desktop">
+      <nav
+        class="desktop-icons"
+        id="desktop-icons"
+        aria-label="Desktop shortcuts"
+      ></nav>
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
-      margin: 0;
-    }
-
-    body {
-      overflow: hidden;
-      font-family: "Tahoma", "MS Sans Serif", sans-serif;
-      background: #1d6ac6 url("res/images/Windows_XP_Bliss.jpg") center center / cover no-repeat fixed;
-    }
-
-    .desktop {
-      position: relative;
-      min-height: 100vh;
-      padding: 24px 24px 54px;
-    }
-
-    .desktop-icons {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, 84px);
-      grid-auto-rows: 92px;
-      align-content: start;
-      justify-content: start;
-      gap: 14px 10px;
-      width: min(380px, 100%);
-    }
-
-    .desktop-icon {
-      display: grid;
-      grid-template-rows: 52px auto;
-      justify-items: center;
-      align-items: start;
-      width: 84px;
-      min-height: 88px;
-      padding: 6px 4px;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      text-shadow: 1px 1px 2px #000;
-      border: 1px solid transparent;
-      border-radius: 2px;
-    }
-
-    .desktop-icon:hover,
-    .desktop-icon:focus-visible {
-      color: white;
-      background: rgba(49, 106, 197, 0.32);
-      border-color: rgba(255, 255, 255, 0.45);
-      outline: none;
-    }
-
-    .desktop-icon img {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      image-rendering: auto;
-    }
-
-    .desktop-icon span {
-      display: block;
-      max-width: 76px;
-      padding: 1px 3px 2px;
-      font-size: 12px;
-      line-height: 1.2;
-      overflow-wrap: anywhere;
-    }
-
-    .welcome-window {
-      position: absolute;
-      top: 38px;
-      right: 42px;
-      width: min(370px, calc(100vw - 48px));
-      touch-action: none;
-    }
-
-    .welcome-window .window-body {
-      padding: 12px;
-    }
-
-    .window.is-dragging {
-      user-select: none;
-    }
-
-    .window .title-bar {
-      cursor: move;
-    }
-
-    .window.is-minimized,
-    .window.is-closed {
-      display: none;
-    }
-
-    .window.is-maximized {
-      position: absolute;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: calc(100vh - 32px);
-    }
-
-    .window.is-maximized .window-body {
-      height: calc(100% - 28px);
-      overflow: auto;
-    }
-
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 64px 1fr;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .profile-grid img {
-      width: 64px;
-      height: 64px;
-      object-fit: cover;
-      border: 1px solid #808080;
-      background: white;
-    }
-
-    .profile-grid h1 {
-      margin: 0 0 4px;
-      font-size: 18px;
-      line-height: 1.15;
-    }
-
-    .profile-grid p,
-    .window-body p {
-      margin: 0;
-      line-height: 1.45;
-    }
-
-    .quick-links {
-      margin: 12px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .quick-links li + li {
-      margin-top: 6px;
-    }
-
-    .status-bar {
-      margin-top: 12px;
-    }
-
-    .taskbar {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      height: 32px;
-      color: white;
-      background: linear-gradient(
-        to bottom,
-        #3b8bf5 0,
-        var(--taskbar-blue) 12%,
-        #1f56c5 48%,
-        var(--taskbar-blue-dark) 100%
-      );
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
-    }
-
-    .start-button {
-      display: flex;
-      align-items: center;
-      height: 32px;
-      min-width: 98px;
-      padding: 0 16px 1px 13px;
-      color: white;
-      font-size: 15px;
-      font-weight: 700;
-      font-style: italic;
-      text-decoration: none;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-      background: radial-gradient(circle at 18% 20%, #8add5d 0, var(--taskbar-green) 42%, var(--taskbar-green-dark) 100%);
-      border-radius: 0 12px 13px 0;
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.55),
-        inset -1px 0 2px rgba(0, 0, 0, 0.35);
-    }
-
-    .taskbar-item {
-      display: flex;
-      align-items: center;
-      min-width: 152px;
-      height: 24px;
-      margin-left: 8px;
-      padding: 0 10px;
-      color: white;
-      font-size: 12px;
-      text-decoration: none;
-      background: linear-gradient(to bottom, rgba(74, 144, 247, 0.95), rgba(24, 78, 184, 0.95));
-      border: 1px solid rgba(18, 56, 145, 0.8);
-      border-radius: 2px;
-      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .taskbar-item.is-hidden {
-      display: none;
-    }
-
-    .taskbar-item.is-active {
-      background: linear-gradient(to bottom, rgba(23, 73, 171, 0.95), rgba(58, 123, 232, 0.95));
-      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.45);
-    }
-
-    .taskbar-spacer {
-      flex: 1 1 auto;
-    }
-
-    .clock {
-      align-self: stretch;
-      display: flex;
-      align-items: center;
-      min-width: 84px;
-      padding: 0 12px;
-      font-size: 12px;
-      background: linear-gradient(to bottom, #18b7ee, #0b87d0);
-      border-left: 1px solid rgba(255, 255, 255, 0.35);
-      box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.2);
-    }
-
-    @media (max-width: 720px) {
-      body {
-        overflow: auto;
-      }
-
-      .desktop {
-        min-height: calc(100vh - 32px);
-        padding: 16px 14px 58px;
-      }
-
-      .desktop-icons {
-        width: 100%;
-      }
-
-      .welcome-window {
-        position: static;
-        width: 100%;
-        margin-top: 22px;
-      }
-
-      .taskbar-item {
-        min-width: 0;
-        width: 112px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <main class="desktop" aria-label="Windows XP style desktop">
-    <nav class="desktop-icons" aria-label="Desktop shortcuts">
-      <a class="desktop-icon" href="folder/cv.html">
-        <img src="res/icon/23.ico" alt="" />
-        <span>CV</span>
-      </a>
-    </nav>
-
-    <section class="window welcome-window" id="welcome-window" aria-label="Welcome">
-      <div class="title-bar">
-        <div class="title-bar-text">Welcome</div>
-        <div class="title-bar-controls">
-          <button aria-label="Minimize"></button>
-          <button aria-label="Maximize"></button>
-          <button aria-label="Close"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <div class="profile-grid">
-          <img src="res/images/MrFrundles.jpg" alt="Frundles Tian" />
-          <div>
-            <h1>Frundles Tian</h1>
-            <p>Personal desktop, small archive, and experiments.</p>
+      <section
+        class="window welcome-window"
+        id="welcome-window"
+        aria-label="Welcome"
+      >
+        <div class="title-bar">
+          <div class="title-bar-text">Welcome</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button aria-label="Close"></button>
           </div>
         </div>
-
-        <fieldset>
-          <legend>Open a Folder</legend>
-          <ul class="quick-links">
-            <li><a href="folder/cv.html">CV</a></li>
-          </ul>
-        </fieldset>
-
-        <div class="status-bar">
-          <p class="status-bar-field">1 item</p>
-          <p class="status-bar-field">Windows XP style homepage</p>
+        <div class="window-body">
+          <div class="welcome-content">
+            <img src="res/images/MrFrundles.jpg" alt="MrFrundles" />
+            <div>
+              <h1>Frundles Tian</h1>
+              <p>
+                This is a Personal desktop, small archive, and some experiments.
+              </p>
+            </div>
+          </div>
+          <div class="welcome-actions field-row">
+            <button type="button" id="welcome-close">Let's go!</button>
+            <button type="button" id="welcome-exit">Get me outta here</button>
+          </div>
         </div>
+      </section>
+
+      <section
+        class="window explorer-window is-closed"
+        id="explorer-window"
+        aria-label="File Explorer"
+      >
+        <div class="title-bar">
+          <div class="title-bar-text" id="explorer-title">File Explorer</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="explorer-toolbar field-row">
+            <button type="button" id="explorer-back">Back</button>
+            <div class="explorer-path" id="explorer-path">folder</div>
+          </div>
+          <div id="explorer-content"></div>
+          <div class="status-bar">
+            <p class="status-bar-field" id="explorer-count">0 items</p>
+            <p class="status-bar-field" id="explorer-status">Ready</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="window browser-window is-closed"
+        id="browser-window"
+        aria-label="Internet exploer"
+      >
+        <div class="title-bar">
+          <div class="title-bar-text browser-title-text">
+            <img src="res/icon/1481.ico" alt="" />
+            <span id="browser-title">Internet exploer</span>
+          </div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="window-body">
+          <nav class="ie-menu-bar" aria-label="Internet exploer menu">
+            <button type="button">File</button>
+            <button type="button">Edit</button>
+            <button type="button">View</button>
+            <button type="button">Favorites</button>
+            <button type="button">Tools</button>
+            <button type="button">Help</button>
+          </nav>
+          <div class="ie-command-bar" aria-label="Internet exploer toolbar">
+            <button type="button" class="ie-tool-button" id="browser-back">
+              <span class="ie-tool-icon is-back" aria-hidden="true">‹</span>
+              <span>Back</span>
+            </button>
+            <button type="button" class="ie-tool-button is-muted">
+              <span class="ie-tool-icon is-forward" aria-hidden="true">›</span>
+            </button>
+            <span class="ie-separator" aria-hidden="true"></span>
+            <button
+              type="button"
+              class="ie-square-tool"
+              id="browser-stop"
+              aria-label="Stop"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <button
+              type="button"
+              class="ie-square-tool"
+              id="browser-refresh"
+              aria-label="Refresh"
+            >
+              <span aria-hidden="true">↻</span>
+            </button>
+            <button
+              type="button"
+              class="ie-square-tool"
+              id="browser-home"
+              aria-label="Home"
+            >
+              <span aria-hidden="true">⌂</span>
+            </button>
+            <span class="ie-separator" aria-hidden="true"></span>
+            <button type="button" class="ie-tool-button">
+              <span class="ie-large-symbol" aria-hidden="true">⌕</span>
+              <span>Search</span>
+            </button>
+            <button type="button" class="ie-tool-button">
+              <span class="ie-large-symbol is-star" aria-hidden="true">★</span>
+              <span>Favorites</span>
+            </button>
+            <span class="ie-spacer"></span>
+            <img
+              class="ie-windows-mark"
+              src="res/images/Windows_XP_logo.png"
+              alt=""
+            />
+          </div>
+          <form class="browser-toolbar" id="browser-form">
+            <label for="browser-address">Address</label>
+            <div class="ie-address-box">
+              <img src="res/icon/1481.ico" alt="" />
+              <input
+                id="browser-address"
+                type="text"
+                value="https://happy?/"
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <button
+                type="button"
+                class="ie-address-dropdown"
+                aria-label="Address history"
+              >
+                ▾
+              </button>
+            </div>
+            <button type="submit" class="ie-go-button">
+              <span aria-hidden="true">➜</span>
+              Go
+            </button>
+          </form>
+          <div class="browser-frame-wrap">
+            <iframe
+              id="browser-frame"
+              title="Internet exploer page"
+              src="internet/home.html"
+            ></iframe>
+          </div>
+          <div class="status-bar">
+            <p class="status-bar-field" id="browser-status">Done</p>
+            <p class="status-bar-field browser-status-blank"></p>
+            <p class="status-bar-field browser-zone">
+              <img src="res/icon/1481.ico" alt="" />
+              Internet
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="taskbar" aria-label="Taskbar">
+      <a class="start-button" href="index.html">
+        <img src="res/images/Windows_XP_logo.png" alt="" />
+        <span>start</span>
+      </a>
+      <button
+        class="taskbar-item is-active"
+        type="button"
+        data-window-target="welcome-window"
+      >
+        Welcome
+      </button>
+      <button
+        class="taskbar-item is-hidden"
+        type="button"
+        data-window-target="explorer-window"
+      >
+        File Explorer
+      </button>
+      <button
+        class="taskbar-item is-hidden"
+        type="button"
+        data-window-target="browser-window"
+      >
+        Internet exploer
+      </button>
+      <div class="taskbar-spacer"></div>
+      <div class="clock" id="clock" aria-live="polite">
+        <span class="tray-icons" aria-hidden="true">
+          <img src="res/icon/1060.ico" alt="" />
+          <img src="res/icon/1036.ico" alt="" />
+          <img src="res/icon/976.ico" alt="" />
+        </span>
+        <span id="clock-time">00:00</span>
       </div>
-    </section>
-  </main>
+    </footer>
 
-  <footer class="taskbar" aria-label="Taskbar">
-    <a class="start-button" href="index.html">start</a>
-    <button class="taskbar-item is-active" type="button" data-window-target="welcome-window">Welcome</button>
-    <a class="taskbar-item" href="folder/cv.html">CV</a>
-    <div class="taskbar-spacer"></div>
-    <div class="clock" id="clock" aria-live="polite">00:00</div>
-  </footer>
-
-  <script>
-    const clock = document.getElementById("clock");
-
-    function updateClock() {
-      const now = new Date();
-      clock.textContent = now.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-      });
-    }
-
-    updateClock();
-    window.setInterval(updateClock, 30000);
-
-    document.querySelectorAll(".window").forEach((windowElement) => {
-      const titleBar = windowElement.querySelector(".title-bar");
-      const minimizeButton = windowElement.querySelector('[aria-label="Minimize"]');
-      const maximizeButton = windowElement.querySelector('[aria-label="Maximize"]');
-      const closeButton = windowElement.querySelector('[aria-label="Close"]');
-      const taskbarButton = document.querySelector(`[data-window-target="${windowElement.id}"]`);
-      let previousBounds = null;
-      let dragOffsetX = 0;
-      let dragOffsetY = 0;
-
-      function keepInsideDesktop(left, top) {
-        const maxLeft = document.documentElement.clientWidth - windowElement.offsetWidth;
-        const maxTop = document.documentElement.clientHeight - windowElement.offsetHeight - 32;
-
-        return {
-          left: Math.min(Math.max(0, left), Math.max(0, maxLeft)),
-          top: Math.min(Math.max(0, top), Math.max(0, maxTop)),
-        };
-      }
-
-      titleBar.addEventListener("pointerdown", (event) => {
-        if (event.target.closest(".title-bar-controls")) {
-          return;
-        }
-
-        if (windowElement.classList.contains("is-maximized")) {
-          return;
-        }
-
-        const rect = windowElement.getBoundingClientRect();
-        dragOffsetX = event.clientX - rect.left;
-        dragOffsetY = event.clientY - rect.top;
-
-        windowElement.classList.add("is-dragging");
-        windowElement.style.left = `${rect.left}px`;
-        windowElement.style.top = `${rect.top}px`;
-        windowElement.style.right = "auto";
-        windowElement.style.position = "absolute";
-        titleBar.setPointerCapture(event.pointerId);
-      });
-
-      titleBar.addEventListener("pointermove", (event) => {
-        if (!titleBar.hasPointerCapture(event.pointerId)) {
-          return;
-        }
-
-        const position = keepInsideDesktop(event.clientX - dragOffsetX, event.clientY - dragOffsetY);
-        windowElement.style.left = `${position.left}px`;
-        windowElement.style.top = `${position.top}px`;
-      });
-
-      titleBar.addEventListener("pointerup", (event) => {
-        if (titleBar.hasPointerCapture(event.pointerId)) {
-          titleBar.releasePointerCapture(event.pointerId);
-        }
-
-        windowElement.classList.remove("is-dragging");
-      });
-
-      titleBar.addEventListener("pointercancel", (event) => {
-        if (titleBar.hasPointerCapture(event.pointerId)) {
-          titleBar.releasePointerCapture(event.pointerId);
-        }
-
-        windowElement.classList.remove("is-dragging");
-      });
-
-      function restoreWindow() {
-        windowElement.classList.remove("is-minimized", "is-closed");
-        taskbarButton?.classList.remove("is-hidden");
-        taskbarButton?.classList.add("is-active");
-      }
-
-      function maximizeWindow() {
-        const rect = windowElement.getBoundingClientRect();
-        previousBounds = {
-          left: rect.left,
-          top: rect.top,
-          width: rect.width,
-          right: windowElement.style.right,
-        };
-
-        windowElement.classList.add("is-maximized");
-        windowElement.style.left = "0px";
-        windowElement.style.top = "0px";
-        windowElement.style.right = "auto";
-        windowElement.style.width = "100vw";
-        maximizeButton?.setAttribute("aria-label", "Restore");
-      }
-
-      function restoreFromMaximize() {
-        windowElement.classList.remove("is-maximized");
-
-        if (previousBounds) {
-          windowElement.style.left = `${previousBounds.left}px`;
-          windowElement.style.top = `${previousBounds.top}px`;
-          windowElement.style.right = previousBounds.right || "auto";
-          windowElement.style.width = `${previousBounds.width}px`;
-        }
-
-        maximizeButton?.setAttribute("aria-label", "Maximize");
-      }
-
-      minimizeButton?.addEventListener("click", () => {
-        windowElement.classList.add("is-minimized");
-        taskbarButton?.classList.remove("is-active");
-      });
-
-      maximizeButton?.addEventListener("click", () => {
-        if (windowElement.classList.contains("is-maximized")) {
-          restoreFromMaximize();
-        } else {
-          maximizeWindow();
-        }
-      });
-
-      closeButton?.addEventListener("click", () => {
-        windowElement.classList.add("is-closed");
-        windowElement.classList.remove("is-minimized");
-        taskbarButton?.classList.add("is-hidden");
-      });
-
-      taskbarButton?.addEventListener("click", () => {
-        restoreWindow();
-      });
-
-      titleBar.addEventListener("dblclick", (event) => {
-        if (event.target.closest(".title-bar-controls")) {
-          return;
-        }
-
-        if (windowElement.classList.contains("is-maximized")) {
-          restoreFromMaximize();
-        } else {
-          maximizeWindow();
-        }
-      });
-    });
-  </script>
-</body>
+    <script src="WindowsXP.js" defer></script>
+  </body>
 </html>

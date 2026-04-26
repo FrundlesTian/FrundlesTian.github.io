@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cannot find server</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Courier New", monospace;
+        color: #111;
+        background: white;
+      }
+
+      main {
+        max-width: 760px;
+        padding: 30px 28px 80px;
+      }
+
+      .headline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 24px;
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      .info-icon {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 46px;
+        color: #1547c7;
+        font: bold 34px Georgia, serif;
+        background: white;
+        border: 2px solid #777;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 30px;
+        font-weight: 400;
+      }
+
+      p {
+        max-width: 640px;
+        margin: 0 0 12px;
+        font-size: 16px;
+        line-height: 1.35;
+      }
+
+      .diagnose {
+        display: grid;
+        grid-template-columns: 68px 1fr;
+        align-items: center;
+        max-width: 580px;
+        min-height: 92px;
+        margin: 12px 0 34px;
+        padding: 8px 12px;
+        border: 3px solid red;
+      }
+
+      .diagnose-icon {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 56px;
+        height: 56px;
+        color: white;
+        font: bold 34px Arial, sans-serif;
+        background: linear-gradient(135deg, #9cd5ff, #245edb);
+        border-radius: 12px;
+        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.65);
+      }
+
+      .diagnose-icon::after {
+        content: "?";
+        position: absolute;
+        right: -8px;
+        bottom: -8px;
+        display: grid;
+        place-items: center;
+        width: 24px;
+        height: 24px;
+        color: white;
+        font: bold 20px Arial, sans-serif;
+        background: #e52a19;
+        border: 2px solid white;
+        border-radius: 50%;
+      }
+
+      .diagnose p {
+        margin: 0;
+      }
+
+      strong {
+        font-weight: 700;
+      }
+
+      ul {
+        max-width: 610px;
+        margin-top: 24px;
+        padding-left: 58px;
+        font-size: 16px;
+        line-height: 1.35;
+      }
+
+      li + li {
+        margin-top: 6px;
+      }
+
+      .small-refresh {
+        display: inline-grid;
+        place-items: center;
+        width: 19px;
+        height: 24px;
+        color: #1a8d24;
+        font: bold 18px Arial, sans-serif;
+        border: 2px solid #777;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="headline">
+        <div class="info-icon" aria-hidden="true">i</div>
+        <h1>The page cannot be displayed</h1>
+      </section>
+
+      <p>
+        The page you are looking for is currently unavailable. The Web site
+        might be experiencing technical difficulties, or you may need to adjust
+        your browser settings.
+      </p>
+
+      <section class="diagnose">
+        <div class="diagnose-icon" aria-hidden="true">▣</div>
+        <p>
+          To attempt fixing network connectivity problems, click
+          <strong>Tools</strong>, and then click
+          <strong>"Diagnose Connection Problems..."</strong>
+        </p>
+      </section>
+
+      <p>Other options to try:</p>
+      <ul>
+        <li>
+          Click the <span class="small-refresh" aria-hidden="true">↻</span>
+          <strong>Refresh</strong> button, or try again later.
+        </li>
+        <li>
+          If you typed the page address in the Address bar, make sure that it is
+          spelled correctly.
+        </li>
+        <li>
+          To check your connection settings, click the <strong>Tools</strong>
+          menu, and then click <strong>Internet Options</strong>. On the
+          <strong>Connections</strong> tab, click
+          <strong>Settings</strong>.
+        </li>
+        <li>
+          Add a matching HTML file to <strong>internet/</strong>, then type its
+          filename as the trigger word.
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
