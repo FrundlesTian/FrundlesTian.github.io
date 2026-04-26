@@ -1,0 +1,8 @@
+interface:
+  display_name: "XP CSS"
+  short_description: "Use the repo's CDN XP.css component keys"
+  brand_color: "#2267CB"
+  default_prompt: "Use $xp-css to edit or document this repo's XP.css usage while treating res/XP as local reference material."
+
+policy:
+  allow_implicit_invocation: true

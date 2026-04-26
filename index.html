@@ -1,228 +1,481 @@
 <!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <title>YUJIA TIAN | Personal Page</title>
-    <link href="res/main.css" rel="stylesheet" />
-    <!-- Y2K 风格 Favicon（需自备：res/images/favicon.png 或 .ico） -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="res/images/favicon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="res/images/favicon.png"
-    />
-    <meta
-      name="description"
-      content="YUJIA TIAN - Software Engineering & Project Management"
-    />
-    <meta name="author" content="Yujia Tian" />
-    <meta
-      name="keywords"
-      content="Yujia Tian, Software Engineering, NLP, Data Analysis, LLM, Apple, HSBC"
-    />
-    <meta name="theme-color" content="#ff00a6" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Y2K 风格字体（可选：本地或 Google Fonts） -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frundles Tian - Desktop</title>
+  <link rel="stylesheet" href="https://unpkg.com/xp.css" />
+  <style>
+    :root {
+      color-scheme: light;
+      --taskbar-blue: #245edb;
+      --taskbar-blue-dark: #123f9f;
+      --taskbar-green: #36a638;
+      --taskbar-green-dark: #1d7f22;
+    }
 
-  <body>
-    <!-- 顶部标题区：需素材 title.gif 或 title.png（Y2K 镀铬/闪字）；无图时显示下方文字 -->
-    <header class="y2k-header">
-      <img
-        class="title-banner"
-        src="res/images/title.gif"
-        alt="YUJIA TIAN"
-        onerror="
-          this.style.display = 'none';
-          document.getElementById('title-fallback').style.display = 'block';
-        "
-      />
-      <p id="title-fallback" class="title-fallback" style="display: none">
-        YUJIA TIAN
-      </p>
-      <p class="contact-line">
-        &#x260E; (+86) 13809260102 &nbsp;&#9830;&nbsp; Singapore
-        &nbsp;&#9830;&nbsp;
-        <a href="mailto:13809260102@163.com">13809260102@163.com</a>
-      </p>
-    </header>
+    * {
+      box-sizing: border-box;
+    }
 
-    <nav class="y2k-nav">
-      <a href="#edu">Education</a>
-      <a href="#pub">Publication</a>
-      <a href="#intern">Internship</a>
-      <a href="#skills">Skills</a>
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      overflow: hidden;
+      font-family: "Tahoma", "MS Sans Serif", sans-serif;
+      background: #1d6ac6 url("res/images/Windows_XP_Bliss.jpg") center center / cover no-repeat fixed;
+    }
+
+    .desktop {
+      position: relative;
+      min-height: 100vh;
+      padding: 24px 24px 54px;
+    }
+
+    .desktop-icons {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 84px);
+      grid-auto-rows: 92px;
+      align-content: start;
+      justify-content: start;
+      gap: 14px 10px;
+      width: min(380px, 100%);
+    }
+
+    .desktop-icon {
+      display: grid;
+      grid-template-rows: 52px auto;
+      justify-items: center;
+      align-items: start;
+      width: 84px;
+      min-height: 88px;
+      padding: 6px 4px;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px #000;
+      border: 1px solid transparent;
+      border-radius: 2px;
+    }
+
+    .desktop-icon:hover,
+    .desktop-icon:focus-visible {
+      color: white;
+      background: rgba(49, 106, 197, 0.32);
+      border-color: rgba(255, 255, 255, 0.45);
+      outline: none;
+    }
+
+    .desktop-icon img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      image-rendering: auto;
+    }
+
+    .desktop-icon span {
+      display: block;
+      max-width: 76px;
+      padding: 1px 3px 2px;
+      font-size: 12px;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
+
+    .welcome-window {
+      position: absolute;
+      top: 38px;
+      right: 42px;
+      width: min(370px, calc(100vw - 48px));
+      touch-action: none;
+    }
+
+    .welcome-window .window-body {
+      padding: 12px;
+    }
+
+    .window.is-dragging {
+      user-select: none;
+    }
+
+    .window .title-bar {
+      cursor: move;
+    }
+
+    .window.is-minimized,
+    .window.is-closed {
+      display: none;
+    }
+
+    .window.is-maximized {
+      position: absolute;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: calc(100vh - 32px);
+    }
+
+    .window.is-maximized .window-body {
+      height: calc(100% - 28px);
+      overflow: auto;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .profile-grid img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border: 1px solid #808080;
+      background: white;
+    }
+
+    .profile-grid h1 {
+      margin: 0 0 4px;
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .profile-grid p,
+    .window-body p {
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .quick-links {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .quick-links li + li {
+      margin-top: 6px;
+    }
+
+    .status-bar {
+      margin-top: 12px;
+    }
+
+    .taskbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      height: 32px;
+      color: white;
+      background: linear-gradient(
+        to bottom,
+        #3b8bf5 0,
+        var(--taskbar-blue) 12%,
+        #1f56c5 48%,
+        var(--taskbar-blue-dark) 100%
+      );
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    }
+
+    .start-button {
+      display: flex;
+      align-items: center;
+      height: 32px;
+      min-width: 98px;
+      padding: 0 16px 1px 13px;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      font-style: italic;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      background: radial-gradient(circle at 18% 20%, #8add5d 0, var(--taskbar-green) 42%, var(--taskbar-green-dark) 100%);
+      border-radius: 0 12px 13px 0;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.55),
+        inset -1px 0 2px rgba(0, 0, 0, 0.35);
+    }
+
+    .taskbar-item {
+      display: flex;
+      align-items: center;
+      min-width: 152px;
+      height: 24px;
+      margin-left: 8px;
+      padding: 0 10px;
+      color: white;
+      font-size: 12px;
+      text-decoration: none;
+      background: linear-gradient(to bottom, rgba(74, 144, 247, 0.95), rgba(24, 78, 184, 0.95));
+      border: 1px solid rgba(18, 56, 145, 0.8);
+      border-radius: 2px;
+      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .taskbar-item.is-hidden {
+      display: none;
+    }
+
+    .taskbar-item.is-active {
+      background: linear-gradient(to bottom, rgba(23, 73, 171, 0.95), rgba(58, 123, 232, 0.95));
+      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.45);
+    }
+
+    .taskbar-spacer {
+      flex: 1 1 auto;
+    }
+
+    .clock {
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      min-width: 84px;
+      padding: 0 12px;
+      font-size: 12px;
+      background: linear-gradient(to bottom, #18b7ee, #0b87d0);
+      border-left: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 720px) {
+      body {
+        overflow: auto;
+      }
+
+      .desktop {
+        min-height: calc(100vh - 32px);
+        padding: 16px 14px 58px;
+      }
+
+      .desktop-icons {
+        width: 100%;
+      }
+
+      .welcome-window {
+        position: static;
+        width: 100%;
+        margin-top: 22px;
+      }
+
+      .taskbar-item {
+        min-width: 0;
+        width: 112px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="desktop" aria-label="Windows XP style desktop">
+    <nav class="desktop-icons" aria-label="Desktop shortcuts">
+      <a class="desktop-icon" href="folder/cv.html">
+        <img src="res/icon/23.ico" alt="" />
+        <span>CV</span>
+      </a>
     </nav>
 
-    <main class="textBlock y2k-main">
-      <!-- 教育经历 -->
-      <section id="edu" class="y2k-section">
-        <h2><span class="y2k-icon">&#9733;</span> Educational Experiences</h2>
-        <div class="y2k-card">
-          <h3>Guangdong University of Foreign Studies</h3>
-          <p class="meta">2021 – 2025 &nbsp;|&nbsp; Guangzhou, China</p>
-          <p>Bachelor of Engineering in Software Engineering</p>
+    <section class="window welcome-window" id="welcome-window" aria-label="Welcome">
+      <div class="title-bar">
+        <div class="title-bar-text">Welcome</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
         </div>
-        <div class="y2k-card">
-          <h3>Nanyang Technological University</h3>
-          <p class="meta">2026 – 2027 &nbsp;|&nbsp; Singapore</p>
-          <p>Master of Project Management</p>
+      </div>
+      <div class="window-body">
+        <div class="profile-grid">
+          <img src="res/images/MrFrundles.jpg" alt="Frundles Tian" />
+          <div>
+            <h1>Frundles Tian</h1>
+            <p>Personal desktop, small archive, and experiments.</p>
+          </div>
         </div>
-        <img src="res/images/smile.gif" alt="" class="section-gif" />
-      </section>
 
-      <hr class="y2k-hr" />
-
-      <!-- 发表论文 -->
-      <section id="pub" class="y2k-section">
-        <h2><span class="y2k-icon">&#9998;</span> Publication</h2>
-        <ol class="pub-list">
-          <li>
-            Chen, Z., Tian, Y. (Student first author), Wang, L., & et al.
-            (2023). A distantly-supervised relation extraction method based on
-            selective gate and noise correction. In
-            <em
-              >Proceedings of the China National Conference on Chinese
-              Computational Linguistics</em
-            >
-            (pp. 159–174). Singapore: Springer Nature Singapore.
-          </li>
-          <li>
-            Wang L., Tian, Y. (Student first author), Chen Z. Enhancing Hindi
-            Feature Representation through Fusion of Dual-Script Word
-            Embeddings. In
-            <em
-              >Proceedings of the 2024 Joint International Conference on
-              Computational Linguistics, Language Resources and Evaluation
-              (LREC-COLING 2024)</em
-            >. 2024: 5966–5976.
-          </li>
-          <li>
-            Tian, Y. (First author), Liao, X., You, Z., & Jiang, S. (2025).
-            MGTS: An Efficient Method for Constructing Multilingual
-            Entity-Opinion Sentiment Triples. ICNLP 2025.
-          </li>
-          <li>
-            Wang, L., Tian, Y. (Student first author), Chen, Z., Li, M., & Lin,
-            N. (2025). EditMDS: An Iterative Optimization Method for
-            Multi-Document Summarization. IMLIP 2025.
-          </li>
-        </ol>
-        <img src="res/images/web.gif" alt="" class="section-gif" />
-      </section>
-
-      <hr class="y2k-hr" />
-
-      <!-- 实习经历 -->
-      <section id="intern" class="y2k-section">
-        <h2><span class="y2k-icon">&#9881;</span> Internship Experience</h2>
-
-        <div class="y2k-card y2k-card-highlight">
-          <h3>Apple Inc. <img src="res/images/apple.gif" alt="" class="apple-logo" /> &#x1F4F1;</h3>
-          <p class="meta">
-            Feb 2025 – Jul 2025 &nbsp;|&nbsp; Project Manager Intern
-            &nbsp;|&nbsp; Shanghai, China
-          </p>
-          <ul>
-            <li>
-              Participated in building the data dashboard system
-              <strong>Perception</strong> for Apple Asia's factory production
-              lines. Integrated, preprocessed, cleaned, and visualized real-time
-              data streams from over 60 Apple Watch/iPhone/iPad production
-              lines.
-            </li>
-            <li>
-              Independently designed and developed the anomaly detection module
-              <strong>AutoHighlight</strong> (CPK, outliers, peak counts,
-              similarity to historical data), generating early warnings and
-              preliminary root cause analyses.
-            </li>
-            <li>
-              Contributed to the RAG module of the internal intelligent Q&amp;A
-              system <strong>Egent</strong>. Built a multi-format document
-              retriever using LangChain and Qdrant for internal Radar, Numbers,
-              and Slice files.
-            </li>
+        <fieldset>
+          <legend>Open a Folder</legend>
+          <ul class="quick-links">
+            <li><a href="folder/cv.html">CV</a></li>
           </ul>
-        </div>
+        </fieldset>
 
-        <div class="y2k-card">
-          <h3>HSBC Global Service Centre</h3>
-          <p class="meta">
-            Apr 2024 – Dec 2024 &nbsp;|&nbsp; Data Analyst Intern &nbsp;|&nbsp;
-            Guangzhou, China
-          </p>
-          <ul>
-            <li>
-              Optimized LightGBM feature engineering to design financial
-              products for different customer segments.
-            </li>
-            <li>
-              Built an NL2SQL system using pretrained RoBERTa with lightweight
-              fine-tuning for natural language to SQL conversion.
-            </li>
-            <li>
-              Led design and implementation of an LLM-based intelligent customer
-              service QA system (RAG, private knowledge base, multi-turn
-              context).
-            </li>
-          </ul>
+        <div class="status-bar">
+          <p class="status-bar-field">1 item</p>
+          <p class="status-bar-field">Windows XP style homepage</p>
         </div>
-        <img src="res/images/robot.gif" alt="" class="section-gif" />
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <hr class="y2k-hr" />
+  <footer class="taskbar" aria-label="Taskbar">
+    <a class="start-button" href="index.html">start</a>
+    <button class="taskbar-item is-active" type="button" data-window-target="welcome-window">Welcome</button>
+    <a class="taskbar-item" href="folder/cv.html">CV</a>
+    <div class="taskbar-spacer"></div>
+    <div class="clock" id="clock" aria-live="polite">00:00</div>
+  </footer>
 
-      <!-- 技能 -->
-      <section id="skills" class="y2k-section">
-        <h2><span class="y2k-icon">&#10004;</span> Skills</h2>
-        <div class="skills-grid">
-          <div class="y2k-card skill-tag">
-            Data Analysis: Classification &amp; clustering, SQL, Python;
-            provincial data modeling award
-          </div>
-          <div class="y2k-card skill-tag">
-            Programming: Python, SQL, TS/JS, Lua, Java
-          </div>
-          <div class="y2k-card skill-tag">
-            Web: Next.js/React + TS/JS; FastAPI/Django + PostgreSQL/Redis
-          </div>
-          <div class="y2k-card skill-tag">
-            LLM: Fine-tuning, research &amp; applications; corporate internship
-            experience
-          </div>
-          <div class="y2k-card skill-tag">
-            Languages: Chinese (native), English (IELTS)
-          </div>
-        </div>
-        <img src="res/images/heart.gif" alt="" class="section-gif" />
-      </section>
+  <script>
+    const clock = document.getElementById("clock");
 
-      <footer class="y2k-footer">
-        <p>Thank you for visiting</p>
-        <img src="res/images/smile.gif" alt="" class="footer-gif" />
-        <div class="under-construction">
-          <p>网站建设中</p>
-          <img src="res/images/constructing.gif" alt="Under construction" />
-        </div>
-      </footer>
-    </main>
-    <br />
-    <a href="https://clustrmaps.com/site/1c94o" title="ClustrMaps"
-      ><img
-        src="//www.clustrmaps.com/map_v2.png?d=7TPt_0ny1YPx3c77XAMEQ5kNWR9xOh-6brNq2ZquA_0&cl=ffffff"
-    /></a>
-  </body>
+    function updateClock() {
+      const now = new Date();
+      clock.textContent = now.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+      });
+    }
+
+    updateClock();
+    window.setInterval(updateClock, 30000);
+
+    document.querySelectorAll(".window").forEach((windowElement) => {
+      const titleBar = windowElement.querySelector(".title-bar");
+      const minimizeButton = windowElement.querySelector('[aria-label="Minimize"]');
+      const maximizeButton = windowElement.querySelector('[aria-label="Maximize"]');
+      const closeButton = windowElement.querySelector('[aria-label="Close"]');
+      const taskbarButton = document.querySelector(`[data-window-target="${windowElement.id}"]`);
+      let previousBounds = null;
+      let dragOffsetX = 0;
+      let dragOffsetY = 0;
+
+      function keepInsideDesktop(left, top) {
+        const maxLeft = document.documentElement.clientWidth - windowElement.offsetWidth;
+        const maxTop = document.documentElement.clientHeight - windowElement.offsetHeight - 32;
+
+        return {
+          left: Math.min(Math.max(0, left), Math.max(0, maxLeft)),
+          top: Math.min(Math.max(0, top), Math.max(0, maxTop)),
+        };
+      }
+
+      titleBar.addEventListener("pointerdown", (event) => {
+        if (event.target.closest(".title-bar-controls")) {
+          return;
+        }
+
+        if (windowElement.classList.contains("is-maximized")) {
+          return;
+        }
+
+        const rect = windowElement.getBoundingClientRect();
+        dragOffsetX = event.clientX - rect.left;
+        dragOffsetY = event.clientY - rect.top;
+
+        windowElement.classList.add("is-dragging");
+        windowElement.style.left = `${rect.left}px`;
+        windowElement.style.top = `${rect.top}px`;
+        windowElement.style.right = "auto";
+        windowElement.style.position = "absolute";
+        titleBar.setPointerCapture(event.pointerId);
+      });
+
+      titleBar.addEventListener("pointermove", (event) => {
+        if (!titleBar.hasPointerCapture(event.pointerId)) {
+          return;
+        }
+
+        const position = keepInsideDesktop(event.clientX - dragOffsetX, event.clientY - dragOffsetY);
+        windowElement.style.left = `${position.left}px`;
+        windowElement.style.top = `${position.top}px`;
+      });
+
+      titleBar.addEventListener("pointerup", (event) => {
+        if (titleBar.hasPointerCapture(event.pointerId)) {
+          titleBar.releasePointerCapture(event.pointerId);
+        }
+
+        windowElement.classList.remove("is-dragging");
+      });
+
+      titleBar.addEventListener("pointercancel", (event) => {
+        if (titleBar.hasPointerCapture(event.pointerId)) {
+          titleBar.releasePointerCapture(event.pointerId);
+        }
+
+        windowElement.classList.remove("is-dragging");
+      });
+
+      function restoreWindow() {
+        windowElement.classList.remove("is-minimized", "is-closed");
+        taskbarButton?.classList.remove("is-hidden");
+        taskbarButton?.classList.add("is-active");
+      }
+
+      function maximizeWindow() {
+        const rect = windowElement.getBoundingClientRect();
+        previousBounds = {
+          left: rect.left,
+          top: rect.top,
+          width: rect.width,
+          right: windowElement.style.right,
+        };
+
+        windowElement.classList.add("is-maximized");
+        windowElement.style.left = "0px";
+        windowElement.style.top = "0px";
+        windowElement.style.right = "auto";
+        windowElement.style.width = "100vw";
+        maximizeButton?.setAttribute("aria-label", "Restore");
+      }
+
+      function restoreFromMaximize() {
+        windowElement.classList.remove("is-maximized");
+
+        if (previousBounds) {
+          windowElement.style.left = `${previousBounds.left}px`;
+          windowElement.style.top = `${previousBounds.top}px`;
+          windowElement.style.right = previousBounds.right || "auto";
+          windowElement.style.width = `${previousBounds.width}px`;
+        }
+
+        maximizeButton?.setAttribute("aria-label", "Maximize");
+      }
+
+      minimizeButton?.addEventListener("click", () => {
+        windowElement.classList.add("is-minimized");
+        taskbarButton?.classList.remove("is-active");
+      });
+
+      maximizeButton?.addEventListener("click", () => {
+        if (windowElement.classList.contains("is-maximized")) {
+          restoreFromMaximize();
+        } else {
+          maximizeWindow();
+        }
+      });
+
+      closeButton?.addEventListener("click", () => {
+        windowElement.classList.add("is-closed");
+        windowElement.classList.remove("is-minimized");
+        taskbarButton?.classList.add("is-hidden");
+      });
+
+      taskbarButton?.addEventListener("click", () => {
+        restoreWindow();
+      });
+
+      titleBar.addEventListener("dblclick", (event) => {
+        if (event.target.closest(".title-bar-controls")) {
+          return;
+        }
+
+        if (windowElement.classList.contains("is-maximized")) {
+          restoreFromMaximize();
+        } else {
+          maximizeWindow();
+        }
+      });
+    });
+  </script>
+</body>
 </html>
