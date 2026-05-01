@@ -170,6 +170,9 @@ body.surface {
 
 .window .title-bar {
   cursor: move;
+  height: 32px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .browser-title-text {
