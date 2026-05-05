@@ -9,10 +9,12 @@ function getRequiredElement(id) {
 }
 
 const clock = getRequiredElement("clock-time");
+const musicToggle = getRequiredElement("music-toggle");
 const folderIcon = "res/icon/23.ico";
 const textFileIcon = "res/icon/6.ico";
 const cvIcon = "res/icon/270.ico";
 const browserIcon = "res/icon/1481.ico";
+const musicTrack = new Audio("res/music/hometown.mp3");
 const welcomeWindow = getRequiredElement("welcome-window");
 const welcomeClose = getRequiredElement("welcome-close");
 const welcomeExit = getRequiredElement("welcome-exit");
@@ -63,6 +65,37 @@ const fileSystem = {
 const nodeByPath = new Map();
 let currentNode = fileSystem;
 let highestWindowZ = 1;
+let musicPlaying = false;
+
+musicTrack.loop = true;
+musicTrack.preload = "auto";
+
+function updateMusicToggle() {
+  musicToggle.setAttribute("aria-pressed", String(musicPlaying));
+  musicToggle.setAttribute(
+    "aria-label",
+    musicPlaying ? "Pause music" : "Play music",
+  );
+  musicToggle.title = musicPlaying ? "Pause music" : "Play music";
+}
+
+async function toggleMusic() {
+  if (musicPlaying) {
+    musicTrack.pause();
+    musicPlaying = false;
+    updateMusicToggle();
+    return;
+  }
+
+  try {
+    await musicTrack.play();
+    musicPlaying = true;
+    updateMusicToggle();
+  } catch (_error) {
+    musicPlaying = false;
+    updateMusicToggle();
+  }
+}
 
 function updateClock() {
   const now = new Date();
@@ -74,6 +107,7 @@ function updateClock() {
 
 updateClock();
 window.setInterval(updateClock, 30000);
+updateMusicToggle();
 
 function getIcon(node) {
   if (node.type === "app" && node.app === "browser") {
@@ -315,6 +349,10 @@ browserStop.addEventListener("click", () => {
 
 browserHome.addEventListener("click", () => {
   setBrowserPage("home");
+});
+
+musicToggle.addEventListener("click", () => {
+  toggleMusic();
 });
 
 welcomeClose.addEventListener("click", () => {

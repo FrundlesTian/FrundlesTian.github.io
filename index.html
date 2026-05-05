@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Frundles Tian - Desktop</title>
+    <link rel="icon" href="res/images/Windows_XP_logo.png" />
     <link rel="stylesheet" href="https://unpkg.com/xp.css" />
     <link rel="stylesheet" href="main.css" />
   </head>
@@ -216,8 +217,18 @@
       </button>
       <div class="taskbar-spacer"></div>
       <div class="clock" id="clock" aria-live="polite">
-        <span class="tray-icons" aria-hidden="true">
+        <button
+          type="button"
+          class="tray-icon-button"
+          id="music-toggle"
+          aria-label="Play music"
+          aria-pressed="false"
+          title="Play music"
+          style="min-width: 22px"
+        >
           <img src="res/icon/1060.ico" alt="" />
+        </button>
+        <span class="tray-icons" aria-hidden="true">
           <img src="res/icon/1036.ico" alt="" />
           <img src="res/icon/976.ico" alt="" />
         </span>
