@@ -37,6 +37,39 @@ const browserRefresh = getRequiredElement("browser-refresh");
 const browserStop = getRequiredElement("browser-stop");
 const browserHome = getRequiredElement("browser-home");
 
+const internetPages = [
+  {
+    slug: "home",
+    title: "Internet exploer",
+    aliases: ["home", "about:home", "internet exploer"],
+  },
+  {
+    slug: "happy",
+    title: "Happy",
+    aliases: ["happy", "happy?", "smile"],
+  },
+  {
+    slug: "cv",
+    title: "CV Search Result",
+    aliases: ["cv", "resume", "curriculum vitae"],
+  },
+  {
+    slug: "secret",
+    title: "Secret",
+    aliases: ["secret"],
+  },
+  {
+    slug: "all_my_friends",
+    title: "All My Friends",
+    aliases: [
+      "all my friends",
+      "all_my_friends",
+      "all-my-friends",
+      "friends",
+    ],
+  },
+];
+
 const fileSystem = {
   name: "folder",
   path: "folder",
@@ -129,6 +162,27 @@ function indexNodes(node, parent = null) {
 
 function getChildren(node) {
   return Array.isArray(node.children) ? node.children : [];
+}
+
+function normalizeInternetText(value) {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/^https?:\/\//, "")
+    .replace(/^www\./, "")
+    .replace(/\.html?$/i, "")
+    .replace(/[^\w\s-]+/g, " ")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function normalizeInternetSlug(value) {
+  return normalizeInternetText(value).replace(/\s+/g, "_");
+}
+
+function getInternetPageBySlug(slug) {
+  return internetPages.find((page) => page.slug === slug) ?? null;
 }
 
 function itemCountText(count) {
@@ -265,55 +319,88 @@ function openBrowser() {
 }
 
 function getInternetCandidates(value) {
-  const compact = value
-    .trim()
-    .toLowerCase()
-    .replace(/^https?:\/\//, "")
-    .replace(/^www\./, "")
-    .replace(/\.html?$/i, "")
-    .replace(/[^a-z0-9_-]+/g, "");
+  const normalized = normalizeInternetText(value);
+  const compact = normalized.replace(/\s+/g, "");
+  const slug = normalized.replace(/\s+/g, "_");
 
-  const words = value
-    .toLowerCase()
-    .replace(/^https?:\/\//, "")
-    .replace(/^www\./, "")
-    .replace(/\.html?/gi, "")
-    .split(/[^a-z0-9_-]+/)
-    .filter(Boolean)
-    .filter((word) => !["com", "net", "org", "html", "www"].includes(word));
+  return [...new Set([value.trim(), normalized, slug, compact].filter(Boolean))];
+}
 
-  return [...new Set([...words, compact].filter(Boolean))];
+function resolveInternetPage(value) {
+  const candidates = getInternetCandidates(value);
+
+  for (const candidate of candidates) {
+    const exactSlug = normalizeInternetSlug(candidate);
+    const directPage = getInternetPageBySlug(exactSlug);
+
+    if (directPage) {
+      return directPage;
+    }
+
+    const matchedPage = internetPages.find((page) => {
+      const aliases = [page.slug, page.title, ...page.aliases];
+      return aliases.some((alias) => {
+        const aliasNormalized = normalizeInternetText(alias);
+        const candidateNormalized = normalizeInternetText(candidate);
+
+        return (
+          aliasNormalized === candidateNormalized ||
+          aliasNormalized.replace(/\s+/g, "") ===
+            candidateNormalized.replace(/\s+/g, "") ||
+          aliasNormalized.replace(/\s+/g, "_") === candidateNormalized.replace(/\s+/g, "_")
+        );
+      });
+    });
+
+    if (matchedPage) {
+      return matchedPage;
+    }
+  }
+
+  return null;
 }
 
 function setBrowserPage(slug) {
   const page = slug || "home";
   const pagePath = `internet/${page}.html`;
+  const pageMeta = getInternetPageBySlug(page) ?? null;
 
-  browserTitle.textContent = `Internet exploer - ${page}`;
+  browserTitle.textContent = page === "home"
+    ? "Internet exploer"
+    : pageMeta
+    ? `Internet exploer - ${pageMeta.title}`
+    : `Internet exploer - ${page}`;
   browserAddress.value = page === "home" ? "about:home" : `https://${page}/`;
   browserFrame.src = pagePath;
   browserStatus.textContent = "Done";
 }
 
 async function openInternetAddress(value) {
+  const matchedPage = resolveInternetPage(value);
   const candidates = getInternetCandidates(value);
-  const fallbackSlug = candidates[0] || "";
+  const fallbackSlug = normalizeInternetSlug(candidates[0] || value);
 
   if (!fallbackSlug) {
     setBrowserPage("home");
     return;
   }
 
+  if (matchedPage) {
+    setBrowserPage(matchedPage.slug);
+    return;
+  }
+
   browserStatus.textContent = `Looking for ${candidates.join(", ")}...`;
 
   for (const slug of candidates) {
-    const pagePath = `internet/${slug}.html`;
+    const pageSlug = normalizeInternetSlug(slug);
+    const pagePath = `internet/${pageSlug}.html`;
 
     try {
       const response = await fetch(pagePath, { method: "HEAD" });
 
       if (response.ok) {
-        setBrowserPage(slug);
+        setBrowserPage(pageSlug);
         return;
       }
     } catch (_error) {
