@@ -9,34 +9,51 @@
         margin: 0;
         font-family: Tahoma, Arial, sans-serif;
         color: #111;
-        background: #fff;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+          url("../res/images/web.gif") center top / 96px repeat;
       }
 
       header {
-        padding: 22px;
+        padding: 18px 22px;
         color: white;
-        background: #245edb;
+        background: linear-gradient(#4d8df7, #245edb);
       }
 
       main {
+        display: grid;
+        gap: 18px;
         padding: 22px;
       }
 
-      h1 {
-        margin: 0 0 8px;
-        font-size: 28px;
-      }
-
-      a,
-      code {
-        color: #0645ad;
+      .panel {
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid #7f9db9;
       }
 
       .links {
         display: grid;
         gap: 8px;
         max-width: 360px;
-        margin-top: 18px;
+      }
+
+      .gifs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .gifs img {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+      }
+
+      a,
+      code {
+        color: #0645ad;
       }
     </style>
   </head>
@@ -46,11 +63,19 @@
       <p>Fake pages are loaded by keyword.</p>
     </header>
     <main>
-      <p>Try typing <code>happy?</code>, <code>cv</code>, or <code>secret</code>.</p>
-      <div class="links">
+      <div class="panel">
+        <p>Try typing <code>happy?</code>, <code>cv</code>, or <code>secret</code>.</p>
+      </div>
+      <div class="panel gifs" aria-label="Internet gifs">
+        <img src="../res/images/smile.gif" alt="smile" />
+        <img src="../res/images/heart.gif" alt="heart" />
+        <img src="../res/images/web.gif" alt="web" />
+      </div>
+      <div class="panel links">
         <a href="happy.html">happy?</a>
         <a href="cv.html">cv</a>
         <a href="secret.html">secret</a>
+        <a href="all_my_friends.html">all_my_friends</a>
       </div>
     </main>
   </body>

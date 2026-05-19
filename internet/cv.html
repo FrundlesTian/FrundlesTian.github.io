@@ -7,30 +7,29 @@
     <style>
       body {
         margin: 0;
-        font-family: Georgia, "Times New Roman", serif;
-        color: #1d1d1d;
-        background: #f8f8f8;
+        font-family: Tahoma, Arial, sans-serif;
+        background: #f6f4ec url("../res/images/constructing.gif") top right / 96px repeat;
       }
 
       main {
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 28px;
-        background: white;
-        min-height: 100vh;
-        border-left: 1px solid #bbb;
-        border-right: 1px solid #bbb;
+        padding: 24px;
+      }
+
+      .card {
+        max-width: 540px;
+        padding: 18px;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid #7f9db9;
       }
 
       h1 {
-        margin: 0;
-        font-size: 30px;
+        margin-top: 0;
       }
 
-      .result {
-        margin-top: 20px;
-        padding-top: 14px;
-        border-top: 1px solid #d8d8d8;
+      img {
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
       }
 
       a {
@@ -40,12 +39,12 @@
   </head>
   <body>
     <main>
-      <h1>CV keyword</h1>
-      <p>This fake page can point visitors back toward the local CV file.</p>
-      <section class="result">
-        <h2>Local result</h2>
-        <p><a href="../folder/cv.pdf">Open cv.pdf</a></p>
-      </section>
+      <div class="card">
+        <img src="../res/images/robot.gif" alt="" />
+        <h1>CV Search Result</h1>
+        <p>The fake browser found the curriculum vitae page.</p>
+        <p><a href="../folder/cv.pdf">Open the PDF</a></p>
+      </div>
     </main>
   </body>
 </html>
