@@ -84,18 +84,6 @@ const fileSystem = {
   type: "folder",
   children: [
     {
-      name: "Q&A",
-      path: "folder/Q&A",
-      type: "folder",
-      children: [
-        {
-          name: "About.txt",
-          path: "folder/Q&A/About.txt",
-          type: "file",
-        },
-      ],
-    },
-    {
       name: "cv.pdf",
       path: "folder/cv.pdf",
       type: "file",
@@ -391,6 +379,35 @@ function setBrowserPage(slug) {
   browserStatus.textContent = "Done";
 }
 
+function syncBrowserChromeWithFrame() {
+  let frameUrl;
+
+  try {
+    frameUrl = new URL(browserFrame.contentWindow.location.href);
+  } catch (_error) {
+    return;
+  }
+
+  const fileName = frameUrl.pathname.split("/").pop() || "";
+  const slug = fileName.replace(/\.html?$/i, "");
+
+  if (!slug || slug === "not_found") {
+    return;
+  }
+
+  const pageMeta = getInternetPageBySlug(slug);
+
+  if (!pageMeta) {
+    return;
+  }
+
+  browserTitle.textContent = slug === "home"
+    ? "Internet exploer"
+    : `Internet exploer - ${pageMeta.title}`;
+  browserAddress.value = slug === "home" ? "about:home" : `https://${slug}/`;
+  browserStatus.textContent = "Done";
+}
+
 async function openInternetAddress(value) {
   const matchedPage = resolveInternetPage(value);
   const candidates = getInternetCandidates(value);
@@ -426,7 +443,7 @@ async function openInternetAddress(value) {
 
   browserTitle.textContent = "Cannot find server";
   browserAddress.value = `https://${fallbackSlug}/`;
-  browserFrame.src = `internet/not-found.html?missing=${encodeURIComponent(
+  browserFrame.src = `internet/not_found.html?missing=${encodeURIComponent(
     fallbackSlug,
   )}`;
   browserStatus.textContent = "Done";
@@ -452,6 +469,10 @@ browserStop.addEventListener("click", () => {
 
 browserHome.addEventListener("click", () => {
   setBrowserPage("home");
+});
+
+browserFrame.addEventListener("load", () => {
+  syncBrowserChromeWithFrame();
 });
 
 musicToggle.addEventListener("click", () => {
