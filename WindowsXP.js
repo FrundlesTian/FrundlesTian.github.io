@@ -36,6 +36,14 @@ const browserBack = getRequiredElement("browser-back");
 const browserRefresh = getRequiredElement("browser-refresh");
 const browserStop = getRequiredElement("browser-stop");
 const browserHome = getRequiredElement("browser-home");
+const networkWindow = getRequiredElement("network-window");
+const aboutWindow = getRequiredElement("about-window");
+const networkStatusButton = getRequiredElement("network-status-button");
+const aboutButton = getRequiredElement("about-button");
+const networkOpenBrowser = getRequiredElement("network-open-browser");
+const networkOpenExplorer = getRequiredElement("network-open-explorer");
+const aboutOpenBrowser = getRequiredElement("about-open-browser");
+const aboutOpenExplorer = getRequiredElement("about-open-explorer");
 
 const internetPages = [
   {
@@ -318,6 +326,14 @@ function openBrowser() {
   browserAddress.select();
 }
 
+function openNetworkWindow() {
+  showWindow(networkWindow);
+}
+
+function openAboutWindow() {
+  showWindow(aboutWindow);
+}
+
 function getInternetCandidates(value) {
   const normalized = normalizeInternetText(value);
   const compact = normalized.replace(/\s+/g, "");
@@ -440,6 +456,30 @@ browserHome.addEventListener("click", () => {
 
 musicToggle.addEventListener("click", () => {
   toggleMusic();
+});
+
+networkStatusButton.addEventListener("click", () => {
+  openNetworkWindow();
+});
+
+aboutButton.addEventListener("click", () => {
+  openAboutWindow();
+});
+
+networkOpenBrowser.addEventListener("click", () => {
+  openBrowser();
+});
+
+networkOpenExplorer.addEventListener("click", () => {
+  showExplorer();
+});
+
+aboutOpenBrowser.addEventListener("click", () => {
+  openBrowser();
+});
+
+aboutOpenExplorer.addEventListener("click", () => {
+  showExplorer();
 });
 
 welcomeClose.addEventListener("click", () => {

@@ -187,6 +187,84 @@
           </div>
         </div>
       </section>
+
+      <section
+        class="window network-window is-closed"
+        id="network-window"
+        aria-label="Network status"
+      >
+        <div class="title-bar">
+          <div class="title-bar-text">Network status</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="window-summary">
+            <img src="res/icon/1036.ico" alt="" />
+            <div>
+              <p class="window-summary-title">Connected</p>
+              <p>Local network and internet access are available.</p>
+            </div>
+          </div>
+          <div class="field-row">
+            <button type="button" id="network-open-browser">
+              Open Internet Explorer
+            </button>
+            <button type="button" id="network-open-explorer">
+              Open File Explorer
+            </button>
+          </div>
+          <fieldset>
+            <legend>Connection details</legend>
+            <p>Adapter: FrundlesTian LAN</p>
+            <p>Status: Connected</p>
+            <p>Signal: Excellent</p>
+          </fieldset>
+        </div>
+      </section>
+
+      <section
+        class="window about-window is-closed"
+        id="about-window"
+        aria-label="About this desktop"
+      >
+        <div class="title-bar">
+          <div class="title-bar-text">About this desktop</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="window-summary">
+            <img src="res/icon/976.ico" alt="" />
+            <div>
+              <p class="window-summary-title">Frundles Tian Desktop</p>
+              <p>An XP-style space for files, pages, and small experiments.</p>
+            </div>
+          </div>
+          <fieldset>
+            <legend>What is inside</legend>
+            <ul class="about-list">
+              <li>Desktop shortcuts and folders</li>
+              <li>A working File Explorer window</li>
+              <li>An Internet exploer window</li>
+            </ul>
+          </fieldset>
+          <div class="field-row">
+            <button type="button" id="about-open-browser">
+              Open Internet Explorer
+            </button>
+            <button type="button" id="about-open-explorer">
+              Open File Explorer
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
 
     <div hidden aria-hidden="true">
@@ -228,6 +306,20 @@
       >
         Internet exploer
       </button>
+      <button
+        class="taskbar-item is-hidden"
+        type="button"
+        data-window-target="network-window"
+      >
+        Network
+      </button>
+      <button
+        class="taskbar-item is-hidden"
+        type="button"
+        data-window-target="about-window"
+      >
+        About
+      </button>
       <div class="taskbar-spacer"></div>
       <div class="clock" id="clock" aria-live="polite">
         <button
@@ -241,10 +333,28 @@
         >
           <img src="res/icon/1060.ico" alt="" />
         </button>
-        <span class="tray-icons" aria-hidden="true">
+
+        <button
+          type="button"
+          class="tray-icon-button"
+          id="network-status-button"
+          aria-label="Open network status"
+          title="Open network status"
+          style="min-width: 22px"
+        >
           <img src="res/icon/1036.ico" alt="" />
+        </button>
+        <button
+          type="button"
+          class="tray-icon-button"
+          id="about-button"
+          aria-label="Open about window"
+          title="Open about window"
+          style="min-width: 22px"
+        >
           <img src="res/icon/976.ico" alt="" />
-        </span>
+        </button>
+
         <span id="clock-time">00:00</span>
       </div>
     </footer>

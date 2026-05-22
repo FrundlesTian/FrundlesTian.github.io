@@ -148,8 +148,26 @@ body.surface {
   touch-action: none;
 }
 
+.network-window {
+  position: absolute;
+  top: 144px;
+  left: min(88px, 10vw);
+  width: min(420px, calc(100vw - 48px));
+  touch-action: none;
+}
+
+.about-window {
+  position: absolute;
+  top: 176px;
+  right: 72px;
+  width: min(460px, calc(100vw - 48px));
+  touch-action: none;
+}
+
 .explorer-window .window-body,
-.browser-window .window-body {
+.browser-window .window-body,
+.network-window .window-body,
+.about-window .window-body {
   padding: 12px;
 }
 
@@ -207,6 +225,29 @@ body.surface {
 .window-body p {
   margin: 0;
   line-height: 1.45;
+}
+
+.window-summary {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.window-summary img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.window-summary-title {
+  font-weight: 700;
+}
+
+.about-list {
+  margin: 8px 0 0 18px;
+  padding: 0;
 }
 
 .explorer-toolbar {
@@ -735,7 +776,9 @@ body.surface {
 
   .welcome-window,
   .explorer-window,
-  .browser-window {
+  .browser-window,
+  .network-window,
+  .about-window {
     position: static;
     width: 100%;
     transform: none;
