@@ -510,6 +510,7 @@ body.surface {
 }
 
 .ie-address-box {
+  position: relative;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) 24px;
   align-items: center;
@@ -551,6 +552,69 @@ body.surface {
   background: linear-gradient(#b4cff5, #3a77d8);
   border: 1px solid #2d58a9;
   box-shadow: none;
+}
+
+.ie-address-history {
+  position: absolute;
+  top: 21px;
+  right: -1px;
+  left: -1px;
+  z-index: 50;
+  max-height: 170px;
+  overflow-y: auto;
+  color: #111;
+  background: white;
+  border: 1px solid #7f9db9;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.22);
+}
+
+.ie-address-history.is-hidden {
+  display: none;
+}
+
+.ie-history-item,
+.ie-history-empty {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  min-height: 22px;
+  padding: 2px 5px;
+  font: 12px var(--xp-system-font);
+  text-align: left;
+  color: #111;
+  background: white;
+  border: 0;
+  box-shadow: none;
+}
+
+.ie-history-item {
+  cursor: default;
+}
+
+.ie-history-item:hover,
+.ie-history-item:focus-visible {
+  color: white;
+  background: #316ac5;
+  outline: none;
+}
+
+.ie-history-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.ie-history-text {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ie-history-empty {
+  color: #777;
 }
 
 .ie-go-button {

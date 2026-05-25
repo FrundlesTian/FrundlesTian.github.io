@@ -160,10 +160,19 @@
               <button
                 type="button"
                 class="ie-address-dropdown"
+                id="browser-history-toggle"
                 aria-label="Address history"
+                aria-controls="browser-history"
+                aria-expanded="false"
               >
                 ▾
               </button>
+              <div
+                class="ie-address-history is-hidden"
+                id="browser-history"
+                role="listbox"
+                aria-label="Search history"
+              ></div>
             </div>
             <button type="submit" class="ie-go-button">
               <span aria-hidden="true">➜</span>

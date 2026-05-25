@@ -30,6 +30,8 @@ const browserWindow = getRequiredElement("browser-window");
 const browserTitle = getRequiredElement("browser-title");
 const browserForm = getRequiredElement("browser-form");
 const browserAddress = getRequiredElement("browser-address");
+const browserHistoryToggle = getRequiredElement("browser-history-toggle");
+const browserHistory = getRequiredElement("browser-history");
 const browserFrame = getRequiredElement("browser-frame");
 const browserStatus = getRequiredElement("browser-status");
 const browserBack = getRequiredElement("browser-back");
@@ -95,6 +97,9 @@ const nodeByPath = new Map();
 let currentNode = fileSystem;
 let highestWindowZ = 1;
 let musicPlaying = false;
+const browserHistoryStorageKey = "frundles.internetSearchHistory";
+const browserHistoryLimit = 10;
+let browserSearchHistory = loadBrowserSearchHistory();
 
 musicTrack.loop = true;
 musicTrack.preload = "auto";
@@ -175,6 +180,116 @@ function normalizeInternetText(value) {
 
 function normalizeInternetSlug(value) {
   return normalizeInternetText(value).replace(/\s+/g, "_");
+}
+
+function loadBrowserSearchHistory() {
+  try {
+    const stored = JSON.parse(
+      window.localStorage.getItem(browserHistoryStorageKey) || "[]",
+    );
+
+    if (!Array.isArray(stored)) {
+      return [];
+    }
+
+    return stored
+      .filter((item) => typeof item === "string" && item.trim())
+      .slice(0, browserHistoryLimit);
+  } catch (_error) {
+    return [];
+  }
+}
+
+function saveBrowserSearchHistory() {
+  try {
+    window.localStorage.setItem(
+      browserHistoryStorageKey,
+      JSON.stringify(browserSearchHistory),
+    );
+  } catch (_error) {
+    // Search history is a convenience; browsing still works without storage.
+  }
+}
+
+function rememberBrowserSearch(value) {
+  const search = value.trim();
+
+  if (!search) {
+    return;
+  }
+
+  browserSearchHistory = [
+    search,
+    ...browserSearchHistory.filter(
+      (item) => item.toLowerCase() !== search.toLowerCase(),
+    ),
+  ].slice(0, browserHistoryLimit);
+  saveBrowserSearchHistory();
+}
+
+function hideBrowserHistory() {
+  browserHistory.classList.add("is-hidden");
+  browserHistoryToggle.setAttribute("aria-expanded", "false");
+}
+
+function selectBrowserHistoryItem(value) {
+  browserAddress.value = value;
+  hideBrowserHistory();
+  browserAddress.focus();
+  openInternetAddress(value);
+}
+
+function renderBrowserHistory() {
+  if (browserSearchHistory.length === 0) {
+    const emptyItem = document.createElement("div");
+    const emptyIcon = document.createElement("span");
+    const emptyText = document.createElement("span");
+
+    emptyItem.className = "ie-history-empty";
+    emptyIcon.textContent = "";
+    emptyText.className = "ie-history-text";
+    emptyText.textContent = "No search history";
+    emptyItem.append(emptyIcon, emptyText);
+    browserHistory.replaceChildren(emptyItem);
+    return;
+  }
+
+  const items = browserSearchHistory.map((entry) => {
+    const item = document.createElement("button");
+    const icon = document.createElement("img");
+    const text = document.createElement("span");
+
+    item.type = "button";
+    item.className = "ie-history-item";
+    item.setAttribute("role", "option");
+    item.title = entry;
+    icon.className = "ie-history-icon";
+    icon.src = browserIcon;
+    icon.alt = "";
+    text.className = "ie-history-text";
+    text.textContent = entry;
+    item.append(icon, text);
+    item.addEventListener("click", () => selectBrowserHistoryItem(entry));
+
+    return item;
+  });
+
+  browserHistory.replaceChildren(...items);
+}
+
+function showBrowserHistory() {
+  renderBrowserHistory();
+  browserHistory.classList.remove("is-hidden");
+  browserHistoryToggle.setAttribute("aria-expanded", "true");
+}
+
+function toggleBrowserHistory() {
+  if (browserHistory.classList.contains("is-hidden")) {
+    showBrowserHistory();
+    return;
+  }
+
+  hideBrowserHistory();
 }
 
 function getInternetPageBySlug(slug) {
@@ -409,6 +524,9 @@ function syncBrowserChromeWithFrame() {
 }
 
 async function openInternetAddress(value) {
+  rememberBrowserSearch(value);
+  renderBrowserHistory();
+
   const matchedPage = resolveInternetPage(value);
   const candidates = getInternetCandidates(value);
   const fallbackSlug = normalizeInternetSlug(candidates[0] || value);
@@ -451,7 +569,50 @@ async function openInternetAddress(value) {
 
 browserForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  hideBrowserHistory();
   openInternetAddress(browserAddress.value);
+});
+
+browserHistoryToggle.addEventListener("click", () => {
+  toggleBrowserHistory();
+});
+
+browserAddress.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowDown") {
+    event.preventDefault();
+    showBrowserHistory();
+    browserHistory.querySelector(".ie-history-item")?.focus();
+  } else if (event.key === "Escape") {
+    hideBrowserHistory();
+  }
+});
+
+browserHistory.addEventListener("keydown", (event) => {
+  const items = [...browserHistory.querySelectorAll(".ie-history-item")];
+  const currentIndex = items.indexOf(document.activeElement);
+
+  if (event.key === "Escape") {
+    hideBrowserHistory();
+    browserAddress.focus();
+  } else if (event.key === "ArrowDown" && items.length > 0) {
+    event.preventDefault();
+    items[(currentIndex + 1) % items.length].focus();
+  } else if (event.key === "ArrowUp" && items.length > 0) {
+    event.preventDefault();
+    items[(currentIndex - 1 + items.length) % items.length].focus();
+  }
+});
+
+document.addEventListener("click", (event) => {
+  if (
+    event.target === browserAddress ||
+    browserHistory.contains(event.target) ||
+    browserHistoryToggle.contains(event.target)
+  ) {
+    return;
+  }
+
+  hideBrowserHistory();
 });
 
 browserBack.addEventListener("click", () => {
