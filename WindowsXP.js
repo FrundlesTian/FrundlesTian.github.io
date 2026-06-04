@@ -9,6 +9,18 @@ function getRequiredElement(id) {
 }
 
 const clock = getRequiredElement("clock-time");
+const startButton = getRequiredElement("start-button");
+const startMenu = getRequiredElement("start-menu");
+const startOpenBrowser = getRequiredElement("start-open-browser");
+const startOpenExplorer = getRequiredElement("start-open-explorer");
+const startOpenCv = getRequiredElement("start-open-cv");
+const startToggleMusic = getRequiredElement("start-toggle-music");
+const startMyFiles = getRequiredElement("start-my-files");
+const startNetwork = getRequiredElement("start-network");
+const startAbout = getRequiredElement("start-about");
+const startHomePage = getRequiredElement("start-home-page");
+const startLogOff = getRequiredElement("start-log-off");
+const startShutDown = getRequiredElement("start-shut-down");
 const musicToggle = getRequiredElement("music-toggle");
 const folderIcon = "res/icon/23.ico";
 const textFileIcon = "res/icon/6.ico";
@@ -129,6 +141,34 @@ async function toggleMusic() {
     musicPlaying = false;
     updateMusicToggle();
   }
+}
+
+function showStartMenu() {
+  startMenu.classList.remove("is-hidden");
+  startMenu.setAttribute("aria-hidden", "false");
+  startButton.setAttribute("aria-expanded", "true");
+  startButton.classList.add("is-open");
+}
+
+function hideStartMenu() {
+  startMenu.classList.add("is-hidden");
+  startMenu.setAttribute("aria-hidden", "true");
+  startButton.setAttribute("aria-expanded", "false");
+  startButton.classList.remove("is-open");
+}
+
+function toggleStartMenu() {
+  if (startMenu.classList.contains("is-hidden")) {
+    showStartMenu();
+    return;
+  }
+
+  hideStartMenu();
+}
+
+function runStartMenuAction(action) {
+  hideStartMenu();
+  action();
 }
 
 function updateClock() {
@@ -437,6 +477,15 @@ function openAboutWindow() {
   showWindow(aboutWindow);
 }
 
+function openCvFromStartMenu() {
+  const cvNode = nodeByPath.get("folder/cv.pdf");
+
+  if (cvNode) {
+    renderFile(cvNode);
+    showExplorer();
+  }
+}
+
 function getInternetCandidates(value) {
   const normalized = normalizeInternetText(value);
   const compact = normalized.replace(/\s+/g, "");
@@ -613,6 +662,88 @@ document.addEventListener("click", (event) => {
   }
 
   hideBrowserHistory();
+});
+
+startButton.addEventListener("click", (event) => {
+  event.stopPropagation();
+  toggleStartMenu();
+});
+
+startMenu.addEventListener("click", (event) => {
+  event.stopPropagation();
+});
+
+document.addEventListener("click", () => {
+  hideStartMenu();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    hideStartMenu();
+  }
+});
+
+startOpenBrowser.addEventListener("click", () => {
+  runStartMenuAction(openBrowser);
+});
+
+startOpenExplorer.addEventListener("click", () => {
+  runStartMenuAction(showExplorer);
+});
+
+startOpenCv.addEventListener("click", () => {
+  runStartMenuAction(openCvFromStartMenu);
+});
+
+startToggleMusic.addEventListener("click", () => {
+  runStartMenuAction(toggleMusic);
+});
+
+startMyFiles.addEventListener("click", () => {
+  runStartMenuAction(showExplorer);
+});
+
+startNetwork.addEventListener("click", () => {
+  runStartMenuAction(openNetworkWindow);
+});
+
+startAbout.addEventListener("click", () => {
+  runStartMenuAction(openAboutWindow);
+});
+
+startHomePage.addEventListener("click", () => {
+  runStartMenuAction(() => {
+    setBrowserPage("home");
+    openBrowser();
+  });
+});
+
+startLogOff.addEventListener("click", () => {
+  runStartMenuAction(() => {
+    document.querySelectorAll(".window").forEach((windowElement) => {
+      windowElement.classList.add("is-closed");
+      windowElement.classList.remove("is-minimized");
+    });
+    document.querySelectorAll(".taskbar-item").forEach((taskbarItem) => {
+      taskbarItem.classList.toggle(
+        "is-hidden",
+        taskbarItem.dataset.windowTarget !== "welcome-window",
+      );
+      taskbarItem.classList.remove("is-active");
+    });
+    welcomeWindow.classList.remove("is-closed", "is-minimized");
+    showWindow(welcomeWindow);
+  });
+});
+
+startShutDown.addEventListener("click", () => {
+  runStartMenuAction(() => {
+    window.close();
+
+    if (!window.closed) {
+      window.location.href = "about:blank";
+    }
+  });
 });
 
 browserBack.addEventListener("click", () => {

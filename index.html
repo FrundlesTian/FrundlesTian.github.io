@@ -289,11 +289,91 @@
       </a>
     </div>
 
+    <nav
+      class="start-menu is-hidden"
+      id="start-menu"
+      aria-label="Start menu"
+      aria-hidden="true"
+    >
+      <div class="start-menu-header">
+        <img src="res/images/MrFrundles.jpg" alt="" />
+        <span>Frundles Tian</span>
+      </div>
+      <div class="start-menu-body">
+        <div class="start-menu-primary">
+          <button type="button" class="start-menu-item" id="start-open-browser">
+            <img src="res/icon/1481.ico" alt="" />
+            <span>
+              <strong>Internet exploer</strong>
+              <small>Browse the tiny web</small>
+            </span>
+          </button>
+          <button type="button" class="start-menu-item" id="start-open-explorer">
+            <img src="res/icon/23.ico" alt="" />
+            <span>
+              <strong>File Explorer</strong>
+              <small>Open folders and files</small>
+            </span>
+          </button>
+          <button type="button" class="start-menu-item" id="start-open-cv">
+            <img src="res/icon/270.ico" alt="" />
+            <span>
+              <strong>CV.pdf</strong>
+              <small>View the document</small>
+            </span>
+          </button>
+          <div class="start-menu-separator" aria-hidden="true"></div>
+          <button type="button" class="start-menu-item" id="start-toggle-music">
+            <img src="res/icon/1060.ico" alt="" />
+            <span>
+              <strong>Music</strong>
+              <small>Play or pause hometown.mp3</small>
+            </span>
+          </button>
+        </div>
+        <div class="start-menu-secondary">
+          <button type="button" class="start-menu-link" id="start-my-files">
+            <img src="res/icon/23.ico" alt="" />
+            <span>My Files</span>
+          </button>
+          <button type="button" class="start-menu-link" id="start-network">
+            <img src="res/icon/1036.ico" alt="" />
+            <span>Network</span>
+          </button>
+          <button type="button" class="start-menu-link" id="start-about">
+            <img src="res/icon/976.ico" alt="" />
+            <span>About</span>
+          </button>
+          <div class="start-menu-separator" aria-hidden="true"></div>
+          <button type="button" class="start-menu-link" id="start-home-page">
+            <img src="res/images/Windows_XP_logo.png" alt="" />
+            <span>Home Page</span>
+          </button>
+        </div>
+      </div>
+      <div class="start-menu-footer">
+        <button type="button" id="start-log-off">
+          <img src="res/icon/130.ico" alt="" />
+          <span>Log Off</span>
+        </button>
+        <button type="button" id="start-shut-down">
+          <img src="res/icon/894.ico" alt="" />
+          <span>Turn Off Computer</span>
+        </button>
+      </div>
+    </nav>
+
     <footer class="taskbar" aria-label="Taskbar">
-      <a class="start-button" href="index.html">
+      <button
+        class="start-button"
+        id="start-button"
+        type="button"
+        aria-controls="start-menu"
+        aria-expanded="false"
+      >
         <img src="res/images/Windows_XP_logo.png" alt="" />
         <span>start</span>
-      </a>
+      </button>
       <button
         class="taskbar-item is-active"
         type="button"
